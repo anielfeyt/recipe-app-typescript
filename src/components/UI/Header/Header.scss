@@ -1,0 +1,10 @@
+.innerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #223b68;
+
+  .logo {
+    margin: 0 8px;
+  }
+}

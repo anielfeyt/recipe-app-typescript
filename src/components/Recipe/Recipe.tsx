@@ -1,12 +1,6 @@
-import React, { useState, useEffect } from "react";
-import RecipeCard from "./components/RecipeCard/RecipeCard";
-import RecipeList from "./components/RecipeList/RecipeList";
-import { Recipe as RecipeModel } from "./recipe.model";
-
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Header from "./components/UI/Header/Header";
-import AddRecipe from "./components/AddRecipe/AddRecipe";
-import Recipe from "./components/Recipe/Recipe";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { Recipe as RecipeModel } from "../../recipe.model";
 
 const RECIPES = [
   {
@@ -46,42 +40,26 @@ const RECIPES = [
   },
 ];
 
-function App() {
-  const [recipes, setRecipes] = useState<RecipeModel[]>([]);
+function Recipe() {
+  let { rid }: any = useParams();
+  const [recipe, setRecipe] = useState<RecipeModel>();
 
   useEffect(() => {
-    setRecipes(RECIPES);
-  }, []);
+    if (RECIPES) {
+      let recipeObj = RECIPES.find(({ id }) => id === rid);
+      setRecipe(recipeObj);
+    }
+  }, [rid]);
 
   return (
-    <Router>
-      <div className="App">
-        <Header />
-        <main>
-          <Switch>
-            <Route path="/" exact>
-              <RecipeList>
-                {recipes.map((recipe) => (
-                  <RecipeCard recipe={recipe} />
-                ))}
-              </RecipeList>
-            </Route>
-            <Route path="/add" component={AddRecipe} />
-            <Route path="/recipe/:rid" component={Recipe} />
-          </Switch>
-        </main>
+    <div>
+      <h1>{recipe && recipe.title}</h1>
+      <div>
+        <ul>{recipe && recipe.ingredients.map((ig) => <li>{ig}</li>)}</ul>
       </div>
-    </Router>
+      <p>{recipe && recipe.instructions}</p>
+    </div>
   );
 }
 
-export default App;
-
-/*  
-  Navigation
-  Recipe Component
-  AddRecipe Component
-  RecipeList Component
-  DeleteRecipe function
-  
-*/
+export default Recipe;

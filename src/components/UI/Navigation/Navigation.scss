@@ -1,0 +1,22 @@
+.mainNav {
+  ul {
+    display: flex;
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #000;
+    font-size: 22px;
+    margin: 0 4px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 5px 10px;
+
+    &:hover {
+      color: rgb(141, 160, 179);
+      border: 1px solid rgb(141, 160, 179);
+    }
+  }
+}
